@@ -51,7 +51,7 @@ if __name__ == '__main__':
     print("Overall Accuracy: %.2f" % (float(corr / len(test_data) * 100)))
     x = np.arange(10)
     digit_recall = [x / y for x, y in zip(digit_correct, digit_count)]
-    plt.xlabel('Digits')
+    plt.xlabel('Clothes')
     plt.ylabel('Recall')
     plt.title("Recall on Test Set")
     plt.bar(x, digit_recall)

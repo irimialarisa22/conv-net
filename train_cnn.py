@@ -30,7 +30,7 @@ if __name__ == '__main__':
     cost = train(save_path=save_path)
 
     params, cost = pickle.load(open(save_path, 'rb'))
-    [f1, f2, w3, w4, b1, b2, b3, b4] = params
+    [f1, f2, _, _, w3, w4, b1, b2, _, _, b3, b4] = params
 
     # Plot cost
     plt.plot(cost, 'r')
@@ -76,7 +76,7 @@ if __name__ == '__main__':
     print("Overall Accuracy: %.2f" % (float(corr / len(test_data) * 100)))
     x = np.arange(10)
     digit_recall = [x / y for x, y in zip(digit_correct, digit_count)]
-    plt.xlabel('Digits')
+    plt.xlabel('Clothes')
     plt.ylabel('Recall')
     plt.title("Recall on Test Set")
     plt.bar(x, digit_recall)
