@@ -1,5 +1,5 @@
 # conv-net
-####*A NumPy implementation of the famed Convolutional Neural Network*
+#### *A NumPy implementation of the famed Convolutional Neural Network*
 
 ## Overview
 CNNs are well-known for their ability to recognize patterns present in images, and so the problem of choice is fashion classification using grayscale images from Fashion MNIST dataset. Both the training instances and the labels will be read as NumPy arrays. Each picture is 28x28 pixels. The dataset consists of a training set of 60.000 examples and a test set of 10.000 examples. Each pixel has a single pixel-value associated with it, indicating the lightness or darkness of that pixel, with higher numbers meaning darker. Each training and test instance is assigned to one of the following labels: 0 T-shirt/top, 1 Trouser, 2 Pullover, 3 Dress, 4 Coat, 5 Sandal, 6 Shirt, 7 Sneaker, 8 Bag and 9 Ankle boot. We choose to perform a supervised learning based classification task. To do so, we aim to learn to predict clothes based on 28x28 grayscale images using a CNN classifier. 
@@ -89,7 +89,7 @@ def do_one_conv(curr_x, curr_y, curr_channels, out_x, out_y, param_dict):
 
 The ```filt``` input is initialized using a standard normal distribution and ```bias``` is initialized to be a vector of zeros. After one or two convolutional layers, it is common to reduce the size of the representation produced by the convolutional layer. This reduction in the representation`s size is known as **downsampling**.
 
-###Downsampling
+### Downsampling
 
 To speed up the training process and reduce the amount of memory consumed by the network, we try to reduce the redundancy present in the input feature. There are a couple of ways we can downsample an image, but for this post, we will look at the most common one: max pooling. In max pooling, a window passes over an image according to a set stride (how many units to move on each pass). At each step, the maximum value within the window is pooled into an output matrix, hence the name **max pooling**.
 
@@ -174,10 +174,11 @@ The following image visualizes the fully connected operation and dense layers:
 
 The output layer of a CNN is in charge of producing the probability of each class (each digit) given the input image. To obtain these probabilities, we initialize our final Dense layer to contain the same number of neurons as there are classes. The output of this dense layer then passes through the **Softmax activation function**, which maps all the final dense layer outputs to a vector whose elements sum up to one:
 
-```math
-\sigma (x_{j}) = \frac{e^{x_{j}}}{\sum_{i} e^{x_{i}}}
-```
-where $$x$$ denotes each element in the final layer`s outputs.
+<p align ="center">
+<img src="https://render.githubusercontent.com/render/math?math=\sigma (x_{j}) = \frac{e^{x_{j}}}{\sum_{i} e^{x_{i}}}">
+</p>
+
+where <img src="https://render.githubusercontent.com/render/math?math=x"> denotes each element in the final layer`s outputs.
 
 #### The Code
 
@@ -333,11 +334,11 @@ def build_model(num_classes=10, img_dim=28, img_depth=1, f=5, num_filt1=8, num_f
 
 To efficiently force the network`s parameters to learn meaningful representations, we use the Adam optimization algorithm. The first one refers to the images being multiplied with the model’s parameters in order to obtain a prediction for each image. The algorithm will see the training examples and compare the predictions to the ground truth labels. Furthermore, the model learns by using gradient-based learning. It learns the weights of convolutional kernels that extract the features and it also learns weights after backward propagation of errors through the cross-entropy loss:
 
-```math
-CE = - \sum_{x} p(x) log q(x)
-```
+<p align ="center">
+<img src="https://render.githubusercontent.com/render/math?math=CE = - \sum_{x} p(x) log q(x)">
+</p>
 
-where $$p(x)$$ is true class distribution and $$q(x)$$ is predicted class distribution.
+where <img src="https://render.githubusercontent.com/render/math?math=p(x)"> is true class distribution and <img src="https://render.githubusercontent.com/render/math?math=q(x)"> is predicted class distribution.
 
 #### The Code
 
