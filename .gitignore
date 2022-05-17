@@ -130,9 +130,5 @@ dmypy.json
 
 *.idea
 
-# datasets
-*.gz
-*.pkl
-
 # weights
 output/
