@@ -1,5 +1,5 @@
 # conv-net
-#### *A NumPy implementation of the famed Convolutional Neural Network*
+### *A NumPy implementation of the famed Convolutional Neural Network*
 
 ## Overview
 CNNs are well-known for their ability to recognize patterns present in images, and so the problem of choice is fashion classification using grayscale images from Fashion MNIST dataset. Both the training instances and the labels will be read as NumPy arrays. Each picture is 28x28 pixels. The dataset consists of a training set of 60.000 examples and a test set of 10.000 examples. Each pixel has a single pixel-value associated with it, indicating the lightness or darkness of that pixel, with higher numbers meaning darker. Each training and test instance is assigned to one of the following labels: 0 T-shirt/top, 1 Trouser, 2 Pullover, 3 Dress, 4 Coat, 5 Sandal, 6 Shirt, 7 Sneaker, 8 Bag and 9 Ankle boot. We choose to perform a supervised learning based classification task. To do so, we aim to learn to predict clothes based on 28x28 grayscale images using a CNN classifier. 
