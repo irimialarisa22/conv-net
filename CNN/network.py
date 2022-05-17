@@ -37,7 +37,7 @@ class SequentialModel:
         for indx, layer in enumerate(self.layers.values()):
             x = layer.forward(x)
             outputs.append(x)
-        return x, outputs  # TODO: could refactor this, as outputs contains x already
+        return x, outputs
 
     def full_backprop(self, probs, label, feed_results):
         layers = self.layers.values()
@@ -73,14 +73,14 @@ class SequentialModel:
         self.optimizer = opt
 
     def train(self, train_data):
-        return self.optimizer.train(self, train_data)  # TODO: must see what parameters are needed
+        return self.optimizer.train(self, train_data)
 
 
-class Layer:  # TODO: refactor Layer not to contain kernels (it has no sense for dense)
+class Layer:
     def name(self):
         raise NotImplementedError("abstract layer")
 
-    def __init__(self, out_dim=None, in_dim=None, kernel=None):  # TODO: kernel_filter_size, kernel_stride
+    def __init__(self, out_dim=None, in_dim=None, kernel=None):
         self.output_dimension = out_dim
         self.input_dimension = in_dim
         self.kernel_dimension = kernel
@@ -117,7 +117,7 @@ class Conv2D(Layer):
 
     def __init__(self, out_dim, in_dim, kernel):
         super(Conv2D, self).__init__(out_dim=out_dim, in_dim=in_dim, kernel=kernel)
-        w_shape = (out_dim, in_dim, kernel[0], kernel[1])  # TODO: kernel_filter_size, kernel_stride
+        w_shape = (out_dim, in_dim, kernel[0], kernel[1])
         self.weights = initializeFilter(w_shape)
         self.biases = np.zeros((self.weights.shape[0], 1))
 

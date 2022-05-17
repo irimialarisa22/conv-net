@@ -39,11 +39,10 @@ class AdamOptimizer:
             t = tqdm(batches)
             for x, batch in enumerate(t):
                 params, cost = self.adamGD(batch, self.num_classes, self.img_dim, self.img_depth, model, cost)
-                # TODO: this should be refactored to be in a better place
 
                 t.set_description("Cost: %.2f" % (cost[-1]))
 
-        if indx % self.frequency == 0:  # TODO: should include more callbacks
+        if indx % self.frequency == 0:
             to_save = [params, cost]
             self.callbacks["SaveModel"](to_save)
 
@@ -54,7 +53,7 @@ class AdamOptimizer:
         beta1 = self.beta1
         beta2 = self.beta2
         """
-        Update the parameters through Adam gradient descent
+        Update the parameters through Adam gradient descent.
         """
         global grads
         X = batch[:, 0:-1]  # get batch inputs
@@ -64,7 +63,7 @@ class AdamOptimizer:
         cost_ = 0
         batch_size = len(batch)
 
-        dvs = None
+        diff_grad = None
         params = model.params()
         for _ in range(3):
             weights = []
@@ -73,10 +72,10 @@ class AdamOptimizer:
                     weights.append(np.zeros(w_b.shape))
                 else:
                     weights.append(None)
-            if dvs is None:
-                dvs = [weights]
+            if diff_grad is None:
+                diff_grad = [weights]
             else:
-                dvs.append(weights)
+                diff_grad.append(weights)
 
         # full forward run
         for i in range(batch_size):
@@ -93,20 +92,20 @@ class AdamOptimizer:
             grads.extend(grads_b)
             for xx in range(model.no_layers() * 2):
                 if grads[xx] is not None:
-                    dvs[0][xx] += grads[xx]
+                    diff_grad[0][xx] += grads[xx]
                 else:
-                    dvs[0][xx] = None
+                    diff_grad[0][xx] = None
 
             cost_ += loss_value
 
         # backprop
         for my_i in range(8):
-            if dvs[0][my_i] is None or dvs[1][my_i] is None or dvs[2][my_i] is None:
+            if diff_grad[0][my_i] is None or diff_grad[1][my_i] is None or diff_grad[2][my_i] is None:
                 continue
-            dvs[1][my_i] = beta1 * dvs[1][my_i] + (1 - beta1) * dvs[0][my_i] / batch_size  # momentum update
-            dvs[2][my_i] = beta2 * dvs[2][my_i] + (1 - beta2) * (dvs[0][my_i] / batch_size) ** 2  # RMSProp update
+            diff_grad[1][my_i] = beta1 * diff_grad[1][my_i] + (1 - beta1) * diff_grad[0][my_i] / batch_size  # momentum update
+            diff_grad[2][my_i] = beta2 * diff_grad[2][my_i] + (1 - beta2) * (diff_grad[0][my_i] / batch_size) ** 2  # RMSProp update
             # combine momentum and RMSProp to perform update with Adam
-            params[my_i] -= lr * dvs[1][my_i] / np.sqrt(dvs[2][my_i] + 1e-7)
+            params[my_i] -= lr * diff_grad[1][my_i] / np.sqrt(diff_grad[2][my_i] + 1e-7)
 
         cost_ = cost_ / batch_size
         cost.append(cost_)
