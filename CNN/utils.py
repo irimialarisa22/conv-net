@@ -3,14 +3,10 @@ import numpy as np
 import gzip
 
 
-#####################################################
-################## Utility Methods ##################
-#####################################################
-
 def extract_data(filename, num_images, IMAGE_WIDTH):
     """
-    Extract images by reading the file bytestream. Reshape the read values into a 3D matrix of dimensions [m, h, w], where m
-    is the number of training examples.
+    Extract images by reading the file bytestream. Reshape the read values into a 3D matrix of dimensions [m, h, w],
+    where `m` is the number of training examples.
     """
     print('Extracting', filename)
     with gzip.open(filename) as bytestream:
