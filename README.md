@@ -93,10 +93,10 @@ The ```filt``` input is initialized using a standard normal distribution and ```
 
 To speed up the training process and reduce the amount of memory consumed by the network, we try to reduce the redundancy present in the input feature. There are a couple of ways we can downsample an image, but for this post, we will look at the most common one: max pooling. In max pooling, a window passes over an image according to a set stride (how many units to move on each pass). At each step, the maximum value within the window is pooled into an output matrix, hence the name **max pooling**.
 
-In the following visual, a window of size f=2 passes over an image with a stride of 2. f denotes the dimensions of the max pooling window (red box) and s denotes the number of units the window moves in the x and y-direction. At each step, the maximum value within the window is chosen:
+In the following visual, a window of size `kernel_size=2` passes over an image with a `stride=2`.  `kernel_size` denotes the dimensions of the max pooling window (red box) and `stride` denotes the number of units the window moves in the x and y-direction. At each step, the maximum value within the window is chosen:
 
 <p align="center">
-<img width="40%" alt="max_pooling" src="https://miro.medium.com/max/1058/0*wH3GmU0JP9zQeODt.gif">
+<img width="60%" alt="max_pooling" src="https://miro.medium.com/max/1058/0*wH3GmU0JP9zQeODt.gif">
 </p>
 
 #### The Code
