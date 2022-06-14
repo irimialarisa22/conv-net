@@ -172,7 +172,7 @@ The following image visualizes the fully connected operation and dense layers:
 
 ### Output Layer
 
-The output layer of a CNN is in charge of producing the probability of each class (each digit) given the input image. To obtain these probabilities, we initialize our final Dense layer to contain the same number of neurons as there are classes. The output of this dense layer then passes through the **Softmax activation function**, which maps all the final dense layer outputs to a vector whose elements sum up to one:
+The output layer of a CNN is in charge of producing the probability of each class (each clothing item) given the input image. To obtain these probabilities, we initialize our final Dense layer to contain the same number of neurons as there are classes. The output of this dense layer then passes through the **Softmax activation function**, which maps all the final dense layer outputs to a vector whose elements sum up to one:
 
 <p align ="center">
 <img src="https://render.githubusercontent.com/render/math?math=\sigma (x_{j}) = \frac{e^{x_{j}}}{\sum_{i} e^{x_{i}}}">
